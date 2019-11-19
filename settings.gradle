@@ -1,0 +1,1 @@
+include ':app', ':thinkActivity', ':thinkCache', ':thinkEncryption', ':thinkLog', ':thinkStorage', ':thinkNetwork', ':thinkPreference', ':thinkUtils', ':thinkTask'

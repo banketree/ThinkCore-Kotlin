@@ -1,0 +1,15 @@
+ext {
+    app = [
+            versionCode: 1,
+            versionName: "1.0",
+            flavorDimensions: "001",
+    ]
+    android = [
+            compileSdkVersion    : 29,
+            buildToolsVersion    : "29.0.2",
+            minSdkVersion        : 16,
+            targetSdkVersion     : 29,
+            supportLibraryVersion: "29.+",
+            //junitVersion : "4.12"
+    ]
+}
