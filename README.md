@@ -57,22 +57,32 @@ stl容器：重写stl部分容器。
 	dependencies {
 		//界面管理
 		compile 'com.github.banketree.Thinkcore:autolayout:0.0.1'  //
+		
 	        compile 'com.github.banketree.Thinkcore:thinkActivity:0.0.1'  //
+		
 		//缓存管理
 		compile 'com.github.banketree.Thinkcore:thinkCache:0.0.1'
+		
 		//加密解密管理
 		compile 'com.github.banketree.Thinkcore:thinkEncryption:0.0.1'
+		
 		//日志管理
 		compile 'com.github.banketree.Thinkcore:thinkLog:0.0.1'
+		
 		//网络管理
 		compile 'com.github.banketree.Thinkcore:thinkNetwork:0.0.1'
+		
 		//偏好设置管理
 		compile 'com.github.banketree.Thinkcore:thinkPreference:0.0.1'
+		
 		//路径管理
 		compile 'com.github.banketree.Thinkcore:thinkStorage:0.0.1'
+		
 		//任务管理
 		compile 'com.github.banketree.Thinkcore:thinkTask:0.0.1'
+		
 		//辅助工具管理
 		compile 'com.github.banketree.Thinkcore:thinkUtils:0.0.1'
+		
 	}
 
