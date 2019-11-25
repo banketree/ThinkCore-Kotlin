@@ -40,10 +40,12 @@ open class TActivityManager private constructor() {
     fun finishActivity(activity: Activity?) {
         var activity = activity
         if (activity != null) {
-            if (activityStack.contains(activity))
-                activityStack.remove(activity)
-            activity.finish()
-            activity = null
+            synchronized(TActivityManager::class.java) {
+                if (activityStack.contains(activity))
+                    activityStack.remove(activity)
+                activity?.finish()
+                activity = null
+            }
         }
     }
 
@@ -52,9 +54,13 @@ open class TActivityManager private constructor() {
      */
     fun removeActivity(activity: Activity?) {
         var activity = activity
-        if (activity != null && activityStack.contains(activity)) {
-            activityStack.remove(activity)
-            activity = null
+        if (activity != null) {
+            synchronized(TActivityManager::class.java) {
+                if (activityStack.contains(activity)) {
+                    activityStack.remove(activity)
+                    activity = null
+                }
+            }
         }
     }
 
@@ -73,14 +79,16 @@ open class TActivityManager private constructor() {
      * 结束所有Activity
      */
     fun finishAllActivity() {
-        var i = 0
-        val size = activityStack.size
-        while (i < size) {
-            if (null != activityStack[i]) {
-                activityStack[i].finish()
+        if (activityStack == null || activityStack.isEmpty()) return
+        synchronized(TActivityManager::class.java) {
+            val iterator = activityStack.iterator()
+            while (iterator.hasNext()) {
+                val next = iterator.next()
+                iterator.remove()
+                next.finish()
             }
-            i++
         }
+
         activityStack.clear()
     }
 
@@ -88,12 +96,31 @@ open class TActivityManager private constructor() {
      * 结束指定类名的Activity
      */
     fun hasActivity(cls: Class<*>): Boolean {
+        if (activityStack == null || activityStack.isEmpty()) return false
         for (activity in activityStack) {
             if (activity::class.java == cls) {
                 return true
             }
         }
         return false
+    }
+
+    /**
+     * 退出应用程序
+     *
+     *
+     * 此方法经测试在某些机型上并不能完全杀死 App 进程, 几乎试过市面上大部分杀死进程的方式, 但都发现没卵用, 所以此
+     * 方法如果不能百分之百保证能杀死进程, 就不能贸然调用 [.release] 释放资源, 否则会造成其他问题, 如果您
+     * 有测试通过的并能适用于绝大多数机型的杀死进程的方式, 望告知
+     */
+    fun appExit() {
+        try {
+            finishAllActivity()
+            android.os.Process.killProcess(android.os.Process.myPid())
+            System.exit(0)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
     companion object {
