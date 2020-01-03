@@ -5,8 +5,15 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import java.util.HashMap
+import android.view.KeyEvent
+import android.text.TextUtils
 
-//界面
+
+/**
+ * @author banketree
+ * @time 2020/1/3 18:23
+ * @description activity 状态管理+按键管理封装
+ */
 abstract class TAppActivity : AppCompatActivity() {
     private val TAG = TAppActivity::class.java.canonicalName
 
@@ -17,6 +24,10 @@ abstract class TAppActivity : AppCompatActivity() {
     val isActivityByStatus: Boolean
         get() = (status != Status.DESTORYED && status != Status.PAUSED
                 && status != Status.STOPPED)
+
+    //状态 以及 按键监听
+    private val iStateListenerHashMap = HashMap<String, IStateListener?>()
+    private val iKeyDownListenerHashMap = HashMap<String, IKeyDownListener?>()
 
     enum class Status {
         NONE, CREATED, STARTED, RESUMED, PAUSED, STOPPED, DESTORYED
@@ -37,29 +48,62 @@ abstract class TAppActivity : AppCompatActivity() {
     override fun onStart() {
         status = Status.STARTED
         super.onStart()
+
+        if (iStateListenerHashMap.isNotEmpty()) {
+            for ((_, iStateListener) in iStateListenerHashMap) {
+                iStateListener?.onState(Status.STARTED)
+            }
+        }
     }
 
     override fun onResume() {
         status = Status.RESUMED
         super.onResume()
+
+        if (iStateListenerHashMap.isNotEmpty()) {
+            for ((_, iStateListener) in iStateListenerHashMap) {
+                iStateListener?.onState(Status.RESUMED)
+            }
+        }
     }
 
     override fun onPause() {
         status = Status.PAUSED
         super.onPause()
+
+        if (iStateListenerHashMap.isNotEmpty()) {
+            for ((_, iStateListener) in iStateListenerHashMap) {
+                iStateListener?.onState(Status.PAUSED)
+            }
+        }
     }
 
     override fun onStop() {
         status = Status.STOPPED
         super.onStop()
+
+        if (iStateListenerHashMap.isNotEmpty()) {
+            for ((_, iStateListener) in iStateListenerHashMap) {
+                iStateListener?.onState(Status.STOPPED)
+            }
+        }
     }
 
     override fun onDestroy() {
+        super.onDestroy()
+        status = Status.DESTORYED
+
+        if (iStateListenerHashMap.isNotEmpty()) {
+            for ((_, iStateListener) in iStateListenerHashMap) {
+                iStateListener?.onState(Status.DESTORYED)
+            }
+        }
+
         TActivityManager.get().removeActivity(this)
         iActivityResult.clear()
-        status = Status.DESTORYED
+        iStateListenerHashMap.clear()
+        iKeyDownListenerHashMap.clear()
         context = null
-        super.onDestroy()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -72,5 +116,53 @@ abstract class TAppActivity : AppCompatActivity() {
             } catch (ex: Exception) {
             }
         }
+    }
+
+
+    //状态 以及 按键监听
+    override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
+        if (iKeyDownListenerHashMap.isNotEmpty()) {
+            for ((_, iKeyDownListener) in iKeyDownListenerHashMap) {
+                if (iKeyDownListener != null && iKeyDownListener.onKeyDown(keyCode, event)) {
+                    return true
+                }
+            }
+        }
+        return super.onKeyDown(keyCode, event)
+    }
+
+    fun addStateListener(key: String, listener: IStateListener?) {
+        if (listener == null || TextUtils.isEmpty(key))
+            return
+
+        iStateListenerHashMap[key] = listener
+    }
+
+    fun removeStateListener(key: String) {
+        if (TextUtils.isEmpty(key))
+            return
+        iStateListenerHashMap[key] = null
+//        iStateListenerHashMap.remove(key)
+    }
+
+    fun addKeyDownListener(key: String, listener: IKeyDownListener?) {
+        if (listener == null || TextUtils.isEmpty(key))
+            return
+        iKeyDownListenerHashMap[key] = listener
+    }
+
+    fun removeKeyDownListener(key: String) {
+        if (TextUtils.isEmpty(key))
+            return
+        iKeyDownListenerHashMap[key] = null
+        //        iKeyDownListenerHashMap.remove(key);
+    }
+
+    interface IStateListener {
+        fun onState(state: Status)
+    }
+
+    interface IKeyDownListener {
+        fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean
     }
 }
