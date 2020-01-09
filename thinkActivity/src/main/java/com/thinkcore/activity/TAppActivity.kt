@@ -17,9 +17,9 @@ import android.text.TextUtils
 abstract class TAppActivity : AppCompatActivity() {
     private val TAG = TAppActivity::class.java.canonicalName
 
-    protected var context: Context? = null
+    private var context: Context? = null
     lateinit var status: Status
-    val iActivityResult = HashMap<Int, TActivityUtils.IActivityResult>()
+    val iActivityResult = HashMap<Int, IActivityResult>()
 
     val isActivityByStatus: Boolean
         get() = (status != Status.DESTORYED && status != Status.PAUSED
@@ -164,5 +164,9 @@ abstract class TAppActivity : AppCompatActivity() {
 
     interface IKeyDownListener {
         fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean
+    }
+
+    interface IActivityResult {
+        fun onActivityResult(resultCode: Int, intent: Intent?)
     }
 }

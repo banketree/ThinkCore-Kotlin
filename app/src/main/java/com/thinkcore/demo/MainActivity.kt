@@ -22,7 +22,7 @@ class MainActivity : TAppActivity() {
     private fun initView() {
         test_tv.setOnClickListener {
             jumpToActivityForResult<TestActivity>(
-                iActivityResult = object : TActivityUtils.IActivityResult {
+                iActivityResult = object : IActivityResult {
                     override fun onActivityResult(resultCode: Int, intent: Intent?) {
                         if (resultCode == Activity.RESULT_OK) {
 

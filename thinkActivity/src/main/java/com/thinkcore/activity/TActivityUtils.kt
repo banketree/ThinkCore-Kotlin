@@ -19,74 +19,73 @@ import java.util.*
 object TActivityUtils {
     private val TAG = TActivityUtils::class.java!!.simpleName
 
-    fun jumpToActivity(
-        context: Context,
-        targetClass: Class<*>? = null,
-        targetIntent: Intent? = null,
-        bundle: Bundle?
-    ) {
-        var actionIntent = targetIntent
-        if (targetClass == null && targetIntent == null) {
-            throw RuntimeException("targetClass and targetIntent null")
-        } else if (targetIntent == null) {
-            actionIntent = Intent(context, targetClass)
-        }
-
-        bundle?.let {
-            actionIntent?.putExtras(it)
-        }
-
-        context.startActivity(actionIntent)
-    }
-
-    @JvmOverloads
-    fun jumpToNewTopActivity(
-        context: Context,
-        targetClass: Class<*>? = null,
-        targetIntent: Intent? = null,
-        bundle: Bundle? = null
-    ) {
-        var actionIntent = targetIntent
-        if (targetClass == null && targetIntent == null) {
-            throw RuntimeException("targetClass and targetIntent null")
-        } else if (targetIntent == null) {
-            actionIntent = Intent(context, targetClass)
-        }
-
-        actionIntent?.flags = (Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP)
-        bundle?.let {
-            actionIntent?.putExtras(it)
-        }
-
-        context.startActivity(actionIntent)
-    }
-
-    //TAppActivity
-    fun jumpToActivityForResult(
-        activity: TAppActivity,
-        targetClass: Class<*>? = null,
-        targetIntent: Intent? = null,
-        bundle: Bundle? = null
-        , resultId: Int = Random().nextInt(100000) + Random().nextInt(10000)
-        , iActivityResult: IActivityResult? = null
-    ) {
-        var actionIntent = targetIntent
-        if (targetClass == null && targetIntent == null) {
-            throw RuntimeException("targetClass and targetIntent null")
-        } else if (targetIntent == null) {
-            actionIntent = Intent(activity, targetClass)
-        }
-
-        iActivityResult?.let {
-            activity.iActivityResult[resultId] = it
-        }
-        bundle?.let {
-            actionIntent?.putExtras(it)
-        }
-
-        activity.startActivityForResult(actionIntent, resultId)
-    }
-
+//    fun jumpToActivity(
+//        context: Context,
+//        targetClass: Class<*>? = null,
+//        targetIntent: Intent? = null,
+//        bundle: Bundle?
+//    ) {
+//        var actionIntent = targetIntent
+//        if (targetClass == null && targetIntent == null) {
+//            throw RuntimeException("targetClass and targetIntent null")
+//        } else if (targetIntent == null) {
+//            actionIntent = Intent(context, targetClass)
+//        }
+//
+//        bundle?.let {
+//            actionIntent?.putExtras(it)
+//        }
+//
+//        context.startActivity(actionIntent)
+//    }
+//
+//    @JvmOverloads
+//    fun jumpToNewTopActivity(
+//        context: Context,
+//        targetClass: Class<*>? = null,
+//        targetIntent: Intent? = null,
+//        bundle: Bundle? = null
+//    ) {
+//        var actionIntent = targetIntent
+//        if (targetClass == null && targetIntent == null) {
+//            throw RuntimeException("targetClass and targetIntent null")
+//        } else if (targetIntent == null) {
+//            actionIntent = Intent(context, targetClass)
+//        }
+//
+//        actionIntent?.flags = (Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP)
+//        bundle?.let {
+//            actionIntent?.putExtras(it)
+//        }
+//
+//        context.startActivity(actionIntent)
+//    }
+//
+//    //TAppActivity
+//    fun jumpToActivityForResult(
+//        activity: TAppActivity,
+//        targetClass: Class<*>? = null,
+//        targetIntent: Intent? = null,
+//        bundle: Bundle? = null
+//        , resultId: Int = Random().nextInt(100000) + Random().nextInt(10000)
+//        , iActivityResult: IActivityResult? = null
+//    ) {
+//        var actionIntent = targetIntent
+//        if (targetClass == null && targetIntent == null) {
+//            throw RuntimeException("targetClass and targetIntent null")
+//        } else if (targetIntent == null) {
+//            actionIntent = Intent(activity, targetClass)
+//        }
+//
+//        iActivityResult?.let {
+//            activity.iActivityResult[resultId] = it
+//        }
+//        bundle?.let {
+//            actionIntent?.putExtras(it)
+//        }
+//
+//        activity.startActivityForResult(actionIntent, resultId)
+//    }
 
     // 跳转到系统短信Activity
     fun jumpToSystemSMSActivity(context: Context, number: String) {
@@ -155,7 +154,7 @@ object TActivityUtils {
     * */
     fun jumpToSystemLocPickImageActivity(
         activity: TAppActivity,
-        iActivityResult: IActivityResult
+        iActivityResult: TAppActivity.IActivityResult
     ) {
         val random = Random()
         val resultId = random.nextInt(10000)
@@ -179,7 +178,7 @@ object TActivityUtils {
     * */
     fun jumpToSystemCameraPickImageActivity(
         activity: TAppActivity,
-        iActivityResult: IActivityResult
+        iActivityResult: TAppActivity.IActivityResult
     ) {
         val random = Random()
         val resultId = random.nextInt(10000)
@@ -374,7 +373,5 @@ object TActivityUtils {
         return hasInstall
     }
 
-    interface IActivityResult {
-        fun onActivityResult(resultCode: Int, intent: Intent?)
-    }
+
 }
