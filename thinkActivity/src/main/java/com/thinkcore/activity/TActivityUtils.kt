@@ -97,16 +97,16 @@ object TActivityUtils {
 
     // 跳转到另一个apk中Activity new android:exported="true"
     // ComponentName("C的包名", "C的包名+C");
-    fun jumpToActivity(
-        context: Context,
-        componentName: ComponentName
-    ) {
-        val mIntent = Intent()
-        mIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-        mIntent.component = componentName
-        mIntent.action = "android.intent.action.VIEW"
-        context.startActivity(mIntent)
-    }
+//    fun jumpToActivity(
+//        context: Context,
+//        componentName: ComponentName
+//    ) {
+//        val mIntent = Intent()
+//        mIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+//        mIntent.component = componentName
+//        mIntent.action = "android.intent.action.VIEW"
+//        context.startActivity(mIntent)
+//    }
 
     /**
      * 回到home，后台运行
