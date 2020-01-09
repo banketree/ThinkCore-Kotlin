@@ -13,289 +13,78 @@ import android.provider.Settings
 import android.text.Html
 import android.util.Log
 import java.io.File
+import java.lang.RuntimeException
 import java.util.*
 
 object TActivityUtils {
     private val TAG = TActivityUtils::class.java!!.simpleName
 
-    // 跳转到Activity
-    fun jumpToActivity(context: Context, datatIntent: Intent) {//
-        context.startActivity(datatIntent)
-    }
-
-    // 跳转到Activity
-    fun jumpPostToActivity(
-        context: Context,
-        datatIntent: Intent, second: Int
-    ) {
-        object : AsyncTask<Int, Int, String>() {
-            override fun doInBackground(vararg integers: Int?): String? {
-                try {
-                    Thread.sleep((second * 1000).toLong())
-                } catch (e: Exception) {
-                }
-
-                return null
-            }
-
-            override fun onPostExecute(s: String) {
-                super.onPostExecute(s)
-                jumpToActivity(context, datatIntent)
-            }
-        }.execute(0)
-    }
-
-    // 跳转到Activity
     fun jumpToActivity(
         context: Context,
-        targetClass: Class<*>
+        targetClass: Class<*>? = null,
+        targetIntent: Intent? = null,
+        bundle: Bundle?
     ) {
-        jumpToActivity(context, Intent(context, targetClass))
-    }
+        var actionIntent = targetIntent
+        if (targetClass == null && targetIntent == null) {
+            throw RuntimeException("targetClass and targetIntent null")
+        } else if (targetIntent == null) {
+            actionIntent = Intent(context, targetClass)
+        }
 
-    fun jumpToActivity(
-        context: Context,
-        targetClass: Class<*>, bundle: Bundle?
-    ) {
-        val datatIntent = Intent(context, targetClass)
-        if (bundle != null)
-            datatIntent.putExtras(bundle!!)
-        context.startActivity(datatIntent)
-    }
+        bundle?.let {
+            actionIntent?.putExtras(it)
+        }
 
-    // 跳转到Activity
-    fun jumpPostToActivity(
-        context: Context,
-        targetClass: Class<*>, second: Int
-    ) {
-        object : AsyncTask<Int, Int, String>() {
-            protected override fun doInBackground(vararg integers: Int?): String? {
-                try {
-                    Thread.sleep((second * 1000).toLong())
-                } catch (e: Exception) {
-                }
-
-                return null
-            }
-
-            override fun onPostExecute(s: String) {
-                super.onPostExecute(s)
-
-                val datatIntent = Intent(context, targetClass)
-                context.startActivity(datatIntent)
-            }
-        }.execute(0)
-    }
-
-    fun jumpPostToActivity(
-        context: Context,
-        targetClass: Class<*>, bundle: Bundle?, second: Int
-    ) {
-        object : AsyncTask<Int, Int, String>() {
-            protected override fun doInBackground(vararg integers: Int?): String? {
-                try {
-                    Thread.sleep((second * 1000).toLong())
-                } catch (e: Exception) {
-                }
-
-                return null
-            }
-
-            override fun onPostExecute(s: String) {
-                super.onPostExecute(s)
-
-                val datatIntent = Intent(context, targetClass)
-                if (bundle != null)
-                    datatIntent.putExtras(bundle!!)
-                context.startActivity(datatIntent)
-            }
-        }.execute(0)
-    }
-
-    // 跳转到Activity
-    fun jumpToNewActivity(
-        context: Context,
-        targetClass: Class<*>
-    ) {
-        val datatIntent = Intent(context, targetClass)
-        datatIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-        context.startActivity(datatIntent)
-    }
-
-    fun jumpToNewActivity(
-        context: Context,
-        targetClass: Class<*>, bundle: Bundle?
-    ) {
-        val datatIntent = Intent(context, targetClass)
-        datatIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-        if (bundle != null)
-            datatIntent.putExtras(bundle!!)
-        context.startActivity(datatIntent)
+        context.startActivity(actionIntent)
     }
 
     @JvmOverloads
     fun jumpToNewTopActivity(
         context: Context,
-        targetClass: Class<*>, bundle: Bundle? = null
+        targetClass: Class<*>? = null,
+        targetIntent: Intent? = null,
+        bundle: Bundle? = null
     ) {
-        val datatIntent = Intent(context, targetClass)
-        datatIntent.flags = (Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP)
-        if (bundle != null)
-            datatIntent.putExtras(bundle!!)
-        context.startActivity(datatIntent)
+        var actionIntent = targetIntent
+        if (targetClass == null && targetIntent == null) {
+            throw RuntimeException("targetClass and targetIntent null")
+        } else if (targetIntent == null) {
+            actionIntent = Intent(context, targetClass)
+        }
+
+        actionIntent?.flags = (Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        bundle?.let {
+            actionIntent?.putExtras(it)
+        }
+
+        context.startActivity(actionIntent)
     }
-
-    fun jumpPostToNewActivity(
-        context: Context,
-        targetClass: Class<*>, second: Int
-    ) {
-        object : AsyncTask<Int, Int, String>() {
-            protected override fun doInBackground(vararg integers: Int?): String? {
-                try {
-                    Thread.sleep((second * 1000).toLong())
-                } catch (e: Exception) {
-                }
-
-                return null
-            }
-
-            override fun onPostExecute(s: String) {
-                super.onPostExecute(s)
-
-                jumpToNewActivity(context, targetClass, null)
-            }
-        }.execute(0)
-    }
-
-    fun jumpPostToNewActivity(
-        context: Context,
-        targetClass: Class<*>, bundle: Bundle, second: Int
-    ) {
-        object : AsyncTask<Int, Int, String>() {
-            protected override fun doInBackground(vararg integers: Int?): String? {
-                try {
-                    Thread.sleep((second * 1000).toLong())
-                } catch (e: Exception) {
-                }
-
-                return null
-            }
-
-            override fun onPostExecute(s: String) {
-                super.onPostExecute(s)
-
-                jumpToNewActivity(context, targetClass, bundle)
-            }
-        }.execute(0)
-    }
-
-    fun jumpPostToNewTopActivity(
-        context: Context,
-        targetClass: Class<*>, second: Int
-    ) {
-        object : AsyncTask<Int, Int, String>() {
-            protected override fun doInBackground(vararg integers: Int?): String? {
-                try {
-                    Thread.sleep((second * 1000).toLong())
-                } catch (e: Exception) {
-                }
-
-                return null
-            }
-
-            override fun onPostExecute(s: String) {
-                super.onPostExecute(s)
-                jumpToNewTopActivity(context, targetClass)
-            }
-        }.execute(0)
-    }
-
-    fun jumpPostToNewTopActivity(
-        context: Context,
-        targetClass: Class<*>, bundle: Bundle, second: Int
-    ) {
-        object : AsyncTask<Int, Int, String>() {
-            protected override fun doInBackground(vararg integers: Int?): String? {
-                try {
-                    Thread.sleep((second * 1000).toLong())
-                } catch (e: Exception) {
-                }
-
-                return null
-            }
-
-            override fun onPostExecute(s: String) {
-                super.onPostExecute(s)
-                jumpToNewTopActivity(context, targetClass, bundle)
-            }
-        }.execute(0)
-    }
-
-    fun jumpToActivityForResult(
-        activity: Activity,
-        targetClass: Class<*>, resultId: Int
-    ) {
-        jumpToActivityForResult(activity, targetClass, null, resultId)
-    }
-
-    fun jumpToActivityForResult(
-        activity: Activity,
-        targetClass: Class<*>, bundle: Bundle?, resultId: Int
-    ) {
-        jumpToActivityForResult(activity, Intent(activity, targetClass), bundle, resultId)
-    }
-
-    fun jumpToActivityForResult(
-        activity: Activity,
-        targetIntent: Intent, bundle: Bundle?, resultId: Int
-    ) {
-        if (bundle != null)
-            targetIntent.putExtras(bundle!!)
-        jumpToActivityForResult(activity, targetIntent, resultId)
-    }
-
-    fun jumpToActivityForResult(
-        activity: Activity,
-        targetIntent: Intent, resultId: Int
-    ) {
-        activity.startActivityForResult(targetIntent, resultId)
-    }
-
 
     //TAppActivity
     fun jumpToActivityForResult(
         activity: TAppActivity,
-        targetClass: Class<*>, iActivityResult: IActivityResult
+        targetClass: Class<*>? = null,
+        targetIntent: Intent? = null,
+        bundle: Bundle? = null
+        , resultId: Int = Random().nextInt(100000) + Random().nextInt(10000)
+        , iActivityResult: IActivityResult? = null
     ) {
-        jumpToActivityForResult(activity, targetClass, null, iActivityResult)
-    }
-
-    fun jumpToActivityForResult(
-        activity: TAppActivity,
-        targetClass: Class<*>, bundle: Bundle?, iActivityResult: IActivityResult
-    ) {
-        jumpToActivityForResult(activity, Intent(activity, targetClass), bundle, iActivityResult)
-    }
-
-    fun jumpToActivityForResult(
-        activity: TAppActivity,
-        targetIntent: Intent, iActivityResult: IActivityResult
-    ) {
-        jumpToActivityForResult(activity, targetIntent, null, iActivityResult)
-    }
-
-    fun jumpToActivityForResult(
-        activity: TAppActivity,
-        targetIntent: Intent, bundle: Bundle?, iActivityResult: IActivityResult?
-    ) {
-        val random = Random()
-        val resultId = random.nextInt(10000)
-        if (iActivityResult != null) {
-            activity.iActivityResult[resultId] = iActivityResult
+        var actionIntent = targetIntent
+        if (targetClass == null && targetIntent == null) {
+            throw RuntimeException("targetClass and targetIntent null")
+        } else if (targetIntent == null) {
+            actionIntent = Intent(activity, targetClass)
         }
-        if (bundle != null)
-            targetIntent.putExtras(bundle!!)
-        jumpToActivityForResult(activity, targetIntent, resultId)
+
+        iActivityResult?.let {
+            activity.iActivityResult[resultId] = it
+        }
+        bundle?.let {
+            actionIntent?.putExtras(it)
+        }
+
+        activity.startActivityForResult(actionIntent, resultId)
     }
 
 
@@ -583,24 +372,6 @@ object TActivityUtils {
         }
 
         return hasInstall
-    }
-
-    /**
-     * @param context
-     * @param activityName
-     * @return
-     * @Description 判断是否是顶部activity
-     */
-    fun isTopActivy(context: Context, activityName: String): Boolean {
-        val am = context
-            .getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
-        val cName = (if (am!!.getRunningTasks(1).size > 0)
-            am!!
-                .getRunningTasks(1).get(0).topActivity
-        else
-            null) ?: return false
-
-        return cName!!.className == activityName
     }
 
     interface IActivityResult {

@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.thinkcore.activity.TActivityUtils
 import com.thinkcore.activity.TAppActivity
+import com.thinkcore.activity.jumpToActivityForResult
 import com.thinkcore.cache.disc.DiskLruCache
 import com.thinkcore.cache.memory.impl.UsingFreqLimitedMemoryCache
 import kotlinx.android.synthetic.main.activity_main.*
@@ -20,10 +21,8 @@ class MainActivity : TAppActivity() {
 
     private fun initView() {
         test_tv.setOnClickListener {
-            TActivityUtils.jumpToActivityForResult(
-                this@MainActivity,
-                TestActivity::class.java,
-                object : TActivityUtils.IActivityResult {
+            jumpToActivityForResult<TestActivity>(
+                iActivityResult = object : TActivityUtils.IActivityResult {
                     override fun onActivityResult(resultCode: Int, intent: Intent?) {
                         if (resultCode == Activity.RESULT_OK) {
 

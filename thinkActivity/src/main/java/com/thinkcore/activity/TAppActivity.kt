@@ -19,7 +19,7 @@ abstract class TAppActivity : AppCompatActivity() {
 
     protected var context: Context? = null
     lateinit var status: Status
-    var iActivityResult = HashMap<Int, TActivityUtils.IActivityResult>()
+    val iActivityResult = HashMap<Int, TActivityUtils.IActivityResult>()
 
     val isActivityByStatus: Boolean
         get() = (status != Status.DESTORYED && status != Status.PAUSED
