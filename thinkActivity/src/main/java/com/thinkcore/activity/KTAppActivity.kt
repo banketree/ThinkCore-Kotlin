@@ -60,17 +60,16 @@ inline fun <reified T : Any> TAppActivity.jumpToActivityForResult(
 }
 
 inline fun TAppActivity.jumpToActivityForResult(
-    targetIntent: Intent? = null,
+    targetIntent: Intent,
     bundle: Bundle? = null
     , resultId: Int = Random().nextInt(100000) + Random().nextInt(10000)
     , iActivityResult: TAppActivity.IActivityResult? = null
 ) = run {
-    targetIntent ?: throw NullPointerException("targetIntent null")
     iActivityResult?.let {
         this.iActivityResult[resultId] = it
     }
     bundle?.let {
-        targetIntent?.putExtras(it)
+        targetIntent.putExtras(it)
     }
     startActivityForResult(targetIntent, resultId)
 }
