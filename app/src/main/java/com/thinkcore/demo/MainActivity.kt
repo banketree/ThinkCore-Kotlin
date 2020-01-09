@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.thinkcore.activity.IActivityResult
 import com.thinkcore.activity.TActivityUtils
 import com.thinkcore.activity.TAppActivity
 import com.thinkcore.activity.jumpToActivityForResult

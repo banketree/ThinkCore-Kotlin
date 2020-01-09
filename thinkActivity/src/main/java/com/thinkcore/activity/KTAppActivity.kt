@@ -45,8 +45,8 @@ inline fun <reified T : Any> TAppActivity.jumpToNewTopActivity(
 
 inline fun <reified T : Any> TAppActivity.jumpToActivityForResult(
     bundle: Bundle? = null
-    , resultId: Int = Random().nextInt(100000) + Random().nextInt(10000)
-    , iActivityResult: TAppActivity.IActivityResult? = null
+    , resultId: Int = Random().nextInt(10000) + Random().nextInt(1000) + Random().nextInt(100)
+    , iActivityResult: IActivityResult? = null
 ) = run {
     var actionIntent = Intent(this, T::class.java)
 
@@ -62,8 +62,8 @@ inline fun <reified T : Any> TAppActivity.jumpToActivityForResult(
 inline fun TAppActivity.jumpToActivityForResult(
     targetIntent: Intent,
     bundle: Bundle? = null
-    , resultId: Int = Random().nextInt(100000) + Random().nextInt(10000)
-    , iActivityResult: TAppActivity.IActivityResult? = null
+    , resultId: Int = Random().nextInt(10000) + Random().nextInt(1000) + Random().nextInt(100)
+    , iActivityResult: IActivityResult? = null
 ) = run {
     iActivityResult?.let {
         this.iActivityResult[resultId] = it

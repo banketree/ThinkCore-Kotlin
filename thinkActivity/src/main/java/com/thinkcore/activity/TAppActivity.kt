@@ -161,12 +161,4 @@ abstract class TAppActivity : AppCompatActivity() {
     interface IStateListener {
         fun onState(state: Status)
     }
-
-    interface IKeyDownListener {
-        fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean
-    }
-
-    interface IActivityResult {
-        fun onActivityResult(resultCode: Int, intent: Intent?)
-    }
 }

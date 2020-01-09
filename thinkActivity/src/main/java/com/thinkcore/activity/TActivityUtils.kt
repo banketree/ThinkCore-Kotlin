@@ -17,7 +17,7 @@ import java.lang.RuntimeException
 import java.util.*
 
 object TActivityUtils {
-    private val TAG = TActivityUtils::class.java!!.simpleName
+    private val TAG = TActivityUtils::class.java.simpleName
 
 //    fun jumpToActivity(
 //        context: Context,
@@ -138,8 +138,8 @@ object TActivityUtils {
                     "com.android.settings",
                     "com.android.settings.WirelessSettings"
                 )
-                intent!!.component = comp
-                intent!!.action = "android.intent.action.VIEW"
+                intent.component = comp
+                intent.action = "android.intent.action.VIEW"
             }
             context.startActivity(intent)
         } catch (e: Exception) {
@@ -154,7 +154,7 @@ object TActivityUtils {
     * */
     fun jumpToSystemLocPickImageActivity(
         activity: TAppActivity,
-        iActivityResult: TAppActivity.IActivityResult
+        iActivityResult: IActivityResult
     ) {
         val random = Random()
         val resultId = random.nextInt(10000)
@@ -168,8 +168,8 @@ object TActivityUtils {
     ) {
         var intent: Intent? = null
         intent = Intent()
-        intent!!.type = "image/*"
-        intent!!.action = Intent.ACTION_GET_CONTENT
+        intent.type = "image/*"
+        intent.action = Intent.ACTION_GET_CONTENT
         activity.startActivityForResult(intent, requestCode)
     }
 
@@ -178,7 +178,7 @@ object TActivityUtils {
     * */
     fun jumpToSystemCameraPickImageActivity(
         activity: TAppActivity,
-        iActivityResult: TAppActivity.IActivityResult
+        iActivityResult: IActivityResult
     ) {
         val random = Random()
         val resultId = random.nextInt(10000)
@@ -362,13 +362,11 @@ object TActivityUtils {
             arrayOf("title"), "title=?", arrayOf(name), null
         )
 
-        if (cursor != null && cursor!!.count > 0) {
+        if (cursor != null && cursor.count > 0) {
             hasInstall = true
         }
 
-        if (cursor != null) {
-            cursor!!.close()
-        }
+        cursor?.close()
 
         return hasInstall
     }
