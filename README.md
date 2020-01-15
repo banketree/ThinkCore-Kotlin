@@ -56,33 +56,33 @@ stl容器：重写stl部分容器。
 导入第二步：添加引用
 	dependencies {
 		//界面管理
-		implementation 'com.github.banketree.ThinkCore-Kotlin:autolayout:v0.0.1'  //
+		implementation 'com.github.banketree.ThinkCore-Kotlin:autolayout:v0.0.3'  //
 		
-	        implementation 'com.github.banketree.ThinkCore-Kotlin:thinkActivity:v0.0.1'  //
+	        implementation 'com.github.banketree.ThinkCore-Kotlin:thinkActivity:v0.0.3'  //
 		
 		//缓存管理
-		implementation 'com.github.banketree.ThinkCore-Kotlin:thinkCache:v0.0.1'
+		implementation 'com.github.banketree.ThinkCore-Kotlin:thinkCache:v0.0.3'
 		
 		//加密解密管理
-		implementation 'com.github.banketree.ThinkCore-Kotlin:thinkEncryption:v0.0.1'
+		implementation 'com.github.banketree.ThinkCore-Kotlin:thinkEncryption:v0.0.3'
 		
 		//日志管理
-		implementation 'com.github.banketree.ThinkCore-Kotlin:thinkLog:v0.0.1'
+		implementation 'com.github.banketree.ThinkCore-Kotlin:thinkLog:v0.0.3'
 		
 		//网络管理
-		implementation 'com.github.banketree.ThinkCore-Kotlin:thinkNetwork:v0.0.1'
+		implementation 'com.github.banketree.ThinkCore-Kotlin:thinkNetwork:v0.0.3'
 		
 		//偏好设置管理
-		implementation 'com.github.banketree.ThinkCore-Kotlin:thinkPreference:v0.0.1'
+		implementation 'com.github.banketree.ThinkCore-Kotlin:thinkPreference:v0.0.3'
 		
 		//路径管理
-		implementation 'com.github.banketree.ThinkCore-Kotlin:thinkStorage:v0.0.1'
+		implementation 'com.github.banketree.ThinkCore-Kotlin:thinkStorage:v0.0.3'
 		
 		//任务管理
-		implementation 'com.github.banketree.ThinkCore-Kotlin:thinkTask:v0.0.1'
+		implementation 'com.github.banketree.ThinkCore-Kotlin:thinkTask:v0.0.3'
 		
 		//辅助工具管理
-		implementation 'com.github.banketree.ThinkCore-Kotlin:thinkUtils:v0.0.1'
+		implementation 'com.github.banketree.ThinkCore-Kotlin:thinkUtils:v0.0.3'
 		
 	}
 
