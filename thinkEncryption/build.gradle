@@ -15,8 +15,8 @@ android {
     defaultConfig {
         minSdkVersion androidConfig.minSdkVersion
         targetSdkVersion androidConfig.targetSdkVersion
-        versionCode 1
-        versionName "1.0"
+        versionCode androidConfig.versionCode
+        versionName androidConfig.versionName
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
@@ -34,6 +34,6 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    api "androidx.core:core-ktx:+"
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation dependence["kotlin-stdlib-jdk7"]
+    api dependence["core-ktx"]
 }
