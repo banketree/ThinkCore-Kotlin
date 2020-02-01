@@ -99,24 +99,20 @@ internal object CoreAdaptScreen {
     ) {
         //兼容 MIUI
         activityResources?.let {
-            val activityDisplayMetricsOnMIUI =
-                getMetricsByMIUI(
-                    it,
-                    appResources
-                )
+            setDensity(
+                it.displayMetrics,
+                density,
+                densityDpi,
+                scaledDensity,
+                xdpi
+            )
 
-            if (activityDisplayMetricsOnMIUI != null) {
+            getMetricsByMIUI(
+                it,
+                appResources
+            )?.let { activityDisplayMetricsOnMIUI ->
                 setDensity(
                     activityDisplayMetricsOnMIUI,
-                    density,
-                    densityDpi,
-                    scaledDensity,
-                    xdpi
-                )
-            } else {
-                val activityDisplayMetrics = it.displayMetrics
-                setDensity(
-                    activityDisplayMetrics,
                     density,
                     densityDpi,
                     scaledDensity,
@@ -125,24 +121,20 @@ internal object CoreAdaptScreen {
             }
         }
 
-        val appDisplayMetricsOnMIUI =
-            getMetricsByMIUI(
-                appResources,
-                appResources
-            )
+        setDensity(
+            appResources.displayMetrics,
+            density,
+            densityDpi,
+            scaledDensity,
+            xdpi
+        )
 
-        if (appDisplayMetricsOnMIUI != null) {
+        getMetricsByMIUI(
+            appResources,
+            appResources
+        )?.let { appDisplayMetricsOnMIUI ->
             setDensity(
                 appDisplayMetricsOnMIUI,
-                density,
-                densityDpi,
-                scaledDensity,
-                xdpi
-            )
-        } else {
-            val appDisplayMetrics = appResources.displayMetrics
-            setDensity(
-                appDisplayMetrics,
                 density,
                 densityDpi,
                 scaledDensity,
