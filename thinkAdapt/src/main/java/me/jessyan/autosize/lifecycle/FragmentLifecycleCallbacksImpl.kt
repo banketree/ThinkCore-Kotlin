@@ -14,6 +14,12 @@ class FragmentLifecycleCallbacksImpl(
 ) : FragmentManager.FragmentLifecycleCallbacks() {
 
     override fun onFragmentCreated(fm: FragmentManager, f: Fragment, savedInstanceState: Bundle?) {
+        super.onFragmentCreated(fm, f, savedInstanceState)
+        IAutoAdaptStrategy?.applyAdapt(f, f.activity!!)
+    }
+
+    override fun onFragmentResumed(fm: FragmentManager, f: Fragment) {
+        super.onFragmentResumed(fm, f)
         IAutoAdaptStrategy?.applyAdapt(f, f.activity!!)
     }
 

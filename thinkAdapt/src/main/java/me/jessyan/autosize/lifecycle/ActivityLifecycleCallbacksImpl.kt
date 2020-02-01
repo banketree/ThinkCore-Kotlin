@@ -40,7 +40,9 @@ class ActivityLifecycleCallbacksImpl(
     }
 
     override fun onActivityResumed(activity: Activity) {
-
+        iAutoAdaptStrategy?.let {
+            it.applyAdapt(activity, activity)
+        }
     }
 
     override fun onActivityPaused(activity: Activity) {
