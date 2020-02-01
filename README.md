@@ -42,6 +42,8 @@ stl容器：重写stl部分容器。
 
 其它辅助管理：版本、内存、手机格式、字符串操作……等等。
 
+界面布局 适配：对所有的布局自定义适配 参考开源 autoSize 并精简优化。
+
 
 
 导入第一步：
@@ -83,6 +85,8 @@ stl容器：重写stl部分容器。
 		
 		//辅助工具管理
 		implementation 'com.github.banketree.ThinkCore-Kotlin:thinkUtils:v0.0.3'
-		
+
+		//辅助界面布局适配
+		implementation 'com.github.banketree.ThinkCore-Kotlin:thinkAdapt:v0.0.3'
 	}
 
