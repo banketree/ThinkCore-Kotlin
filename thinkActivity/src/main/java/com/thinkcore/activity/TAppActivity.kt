@@ -7,6 +7,8 @@ import androidx.appcompat.app.AppCompatActivity
 import java.util.HashMap
 import android.view.KeyEvent
 import android.text.TextUtils
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 
 
 /**
@@ -161,4 +163,54 @@ abstract class TAppActivity : AppCompatActivity() {
     interface IStateListener {
         fun onState(state: Status)
     }
+}
+
+
+/**
+ * Activity show
+ */
+inline fun <reified T : TFragment> FragmentActivity.showTFragment(
+    replaceViewId: Int, init: (T).() -> Unit = {}
+): T {
+    val sfm = supportFragmentManager
+    val transaction = sfm.beginTransaction()
+    var fragment = sfm.findFragmentByTag(T::class.java.name)
+    val isFirstFragment = fragment == null
+    if (fragment == null) {
+        fragment = T::class.java.newInstance()
+        transaction.add(replaceViewId, fragment, T::class.java.name)
+    }
+    sfm.fragments.filter { it != fragment }.forEach {
+        (it as? TFragment)?.onHide()
+        transaction.hide(it)
+    }
+    transaction.show(fragment)
+    transaction.commitAllowingStateLoss()
+    sfm.executePendingTransactions()
+    init(fragment as T)
+    (fragment as? TFragment)?.onShow()
+    return fragment
+}
+
+/**
+ * Activity show
+ */
+inline fun FragmentActivity.showTFragment(
+    fragment: TFragment,
+    replaceViewId: Int
+) {
+    val sfm = supportFragmentManager
+    val transaction = sfm.beginTransaction()
+    val isFirstFragment = !fragment.isAdded
+    if (!fragment.isAdded) {
+        transaction.add(replaceViewId, fragment, fragment.javaClass.name)
+    }
+    sfm.fragments.filter { it != fragment }.forEach {
+        (it as? TFragment)?.onHide()
+        transaction.hide(it)
+    }
+    transaction.show(fragment)
+    transaction.commitAllowingStateLoss()
+    sfm.executePendingTransactions()
+    (fragment as? TFragment)?.onShow()
 }

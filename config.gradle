@@ -95,9 +95,9 @@ ext {
             "okhttp3"                      : "com.squareup.okhttp3:okhttp:3.12.3",
             "okhttp4"                      : "com.squareup.okhttp3:okhttp:4.0.0",
             "okhttp-urlconnection"         : "com.squareup.okhttp:okhttp-urlconnection:2.0.0",
-            "glide"                        : "com.github.bumptech.glide:glide:4.9.0",
-            "glide-compiler"               : "com.github.bumptech.glide:compiler:4.9.0",
-            "glide-loader-okhttp3"         : "com.github.bumptech.glide:okhttp3-integration:4.9.0",
+            "glide"                        : "com.github.bumptech.glide:glide:4.11.0",
+            "glide-compiler"               : "com.github.bumptech.glide:compiler:4.11.0",
+            "glide-loader-okhttp3"         : "com.github.bumptech.glide:okhttp3-integration:4.11.0",
             "picasso"                      : "com.squareup.picasso:picasso:2.5.2",
 
             //jetpack
@@ -115,13 +115,27 @@ ext {
             "lifecycle-common"             : "androidx.lifecycle:lifecycle-common-java8:2.1.0-alpha02",
             //optional - ReactiveStreams support for LiveData
             "lifecycle-reactivestreams"    : "androidx.lifecycle:lifecycle-reactivestreams:2.1.0-alpha02",
+            //room - db
+            "room-runtime"                 : "androidx.room:room-runtime:2.2.4",
+            "room-compiler"                : "androidx.room:room-compiler:2.2.4",
 
             //banketree
-            "thinkActivity"                : "com.github.banketree.ThinkCore-Kotlin:thinkActivity:v0.0.2-5", //UI
-            "thinkStorage"                 : "com.github.banketree.ThinkCore-Kotlin:thinkStorage:v0.0.2-5", // 本地存储路径
-            "richtextor-kotlin"            : "com.github.banketree:richtextor-kotlin:v0.0.1", //富文本
+            "thinkActivity"                : "com.github.banketree.ThinkCore-Kotlin:thinkActivity:v0.0.3-2", //UI
+            "thinkStorage"                 : "com.github.banketree.ThinkCore-Kotlin:thinkStorage:v0.0.3-2", // 本地存储路径
+            "thinkUtils"                   : "com.github.banketree.ThinkCore-Kotlin:thinkUtils:v0.0.3-2", // 辅助工具管理
+            "thinkCache"                   : "com.github.banketree.ThinkCore-Kotlin:thinkCache:v0.0.3-2", // 缓存机制
+            "PullRefreshLayout"            : "com.github.banketree:PullRefreshLayout-kotlin:v0.0.2", // 开源-下拉刷新，上拉加载
+            "autosize"                     : "me.jessyan:autosize:1.2.1", // 布局适配
+            "richtextor-kotlin"            : "com.github.banketree:richtextor-kotlin:v0.0.8-1", //富文本
             "matisse-kotlin"               : "com.github.banketree:matisse-kotlin:v0.0.3", //知乎 照相+相冊
-            "tt-video"                     : "com.github.banketree.tt-player:tt-video:v0.0.2", //ijplayer 根据业务自定义
+            "tt-video"                     : "com.github.banketree.tt-player:tt-video:v0.0.2-1", //ijplayer 根据业务自定义
             "tt-camera"                    : "com.github.banketree.tt-camera:camera-component:v0.0.3", //自定义拍照
+            "AndroidLame-kotlin"           : "com.github.banketree:AndroidLame-kotlin:v0.0.3", //mp3 录音 + 播放器
+
+            "qcloud_cosxml"                : "com.tencent.qcloud:cosxml:5.4.+", //腾讯云
+            "SVGAPlayer-Android"           : "com.github.yyued:SVGAPlayer-Android:2.5.3", //svga 播放器
+            "PhotoView"                    : "com.github.chrisbanes:PhotoView:2.0.0", //图片浏览类库
+            "pickers-kotlin"               : "com.github.banketree:pickers-kotlin:v0.0.1", //滑动 选择器
+            "io-client"                    : "io.socket:socket.io-client:0.8.3", //通讯
     ]
 }
