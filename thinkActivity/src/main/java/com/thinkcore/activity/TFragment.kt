@@ -31,7 +31,7 @@ open class TFragment : Fragment() {
 /**
  * Fragment show
  */
-inline fun <reified T : Fragment> Fragment.showTFragment(
+inline fun <reified T : Fragment> Fragment.showFragment(
     replaceViewId: Int, init: (T).() -> Unit = {}
 ): T {
     val sfm = childFragmentManager
@@ -57,7 +57,7 @@ inline fun <reified T : Fragment> Fragment.showTFragment(
 /**
  * Fragment show
  */
-inline fun Fragment.showTFragment(
+inline fun Fragment.showFragment(
     fragment: Fragment,
     replaceViewId: Int
 ) {

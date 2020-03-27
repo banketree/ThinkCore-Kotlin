@@ -133,12 +133,3 @@ inline fun Number.toBitSizeString(): String {
         (size / 100).toString() + "." + (size % 100).toString() + "GB"
     }
 }
-
-/**
- * 距今多少天了
- * */
-inline fun Number.getDaysSoFar(): Int {
-    val second = (System.currentTimeMillis() - toLong()) / 1000
-    val days = second / (24 * 60 * 60)
-    return (days).toInt()
-}

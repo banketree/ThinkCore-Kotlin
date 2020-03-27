@@ -33,71 +33,69 @@ inline fun Activity.unlockScreenOrientation() {
 }
 
 inline fun Activity.hideSoftInput() {
-    val view = window.peekDecorView()
-    view?.let {
+    window.peekDecorView()?.let {
         inputMethodManager?.hideSoftInputFromWindow(it.windowToken, 0)
     }
 }
 
 inline fun Activity.postDelay(delayMillis: Long, crossinline actionFun: () -> Unit = {}) {
-    val view = window.peekDecorView()
-    view?.let {
-        view.postDelayed({
+    window.peekDecorView()?.let {
+        it.postDelayed({
             if (isFinishing) return@postDelayed
             actionFun()
         }, delayMillis)
     }
 }
 
-/**
- * Activity show
- */
-inline fun <reified T : Fragment> FragmentActivity.showFragment(
-    replaceViewId: Int, init: (T).() -> Unit = {}
-): T {
-    val sfm = supportFragmentManager
-    val transaction = sfm.beginTransaction()
-    var fragment = sfm.findFragmentByTag(T::class.java.name)
-    val isFirstFragment = fragment == null
-    if (fragment == null) {
-        fragment = T::class.java.newInstance()
-        transaction.add(replaceViewId, fragment, T::class.java.name)
-    }
-    sfm.fragments.filter { it != fragment }.forEach {
-        transaction.hide(it)
-    }
-    transaction.show(fragment)
-    transaction.commitAllowingStateLoss()
-    sfm.executePendingTransactions()
-    init(fragment as T)
-    return fragment
-}
-
-inline fun <reified T : Fragment> FragmentActivity.getFragment(
-    init: (T)?.() -> Unit = {}
-): T? {
-    val fragment = supportFragmentManager.findFragmentByTag(T::class.java.name)
-    init(fragment as T?)
-    return fragment
-}
-
-/**
- * Activity show
- */
-inline fun FragmentActivity.showFragment(
-    fragment: Fragment,
-    replaceViewId: Int
-) {
-    val sfm = supportFragmentManager
-    val transaction = sfm.beginTransaction()
-    val isFirstFragment = !fragment.isAdded
-    if (!fragment.isAdded) {
-        transaction.add(replaceViewId, fragment, fragment.javaClass.name)
-    }
-    sfm.fragments.filter { it != fragment }.forEach {
-        transaction.hide(it)
-    }
-    transaction.show(fragment)
-    transaction.commitAllowingStateLoss()
-    sfm.executePendingTransactions()
-}
+///**
+// * Activity show
+// */
+//inline fun <reified T : Fragment> FragmentActivity.showFragment(
+//    replaceViewId: Int, init: (T).() -> Unit = {}
+//): T {
+//    val sfm = supportFragmentManager
+//    val transaction = sfm.beginTransaction()
+//    var fragment = sfm.findFragmentByTag(T::class.java.name)
+//    val isFirstFragment = fragment == null
+//    if (fragment == null) {
+//        fragment = T::class.java.newInstance()
+//        transaction.add(replaceViewId, fragment, T::class.java.name)
+//    }
+//    sfm.fragments.filter { it != fragment }.forEach {
+//        transaction.hide(it)
+//    }
+//    transaction.show(fragment)
+//    transaction.commitAllowingStateLoss()
+//    sfm.executePendingTransactions()
+//    init(fragment as T)
+//    return fragment
+//}
+//
+//inline fun <reified T : Fragment> FragmentActivity.getFragment(
+//    init: (T)?.() -> Unit = {}
+//): T? {
+//    val fragment = supportFragmentManager.findFragmentByTag(T::class.java.name)
+//    init(fragment as T?)
+//    return fragment
+//}
+//
+///**
+// * Activity show
+// */
+//inline fun FragmentActivity.showFragment(
+//    fragment: Fragment,
+//    replaceViewId: Int
+//) {
+//    val sfm = supportFragmentManager
+//    val transaction = sfm.beginTransaction()
+//    val isFirstFragment = !fragment.isAdded
+//    if (!fragment.isAdded) {
+//        transaction.add(replaceViewId, fragment, fragment.javaClass.name)
+//    }
+//    sfm.fragments.filter { it != fragment }.forEach {
+//        transaction.hide(it)
+//    }
+//    transaction.show(fragment)
+//    transaction.commitAllowingStateLoss()
+//    sfm.executePendingTransactions()
+//}

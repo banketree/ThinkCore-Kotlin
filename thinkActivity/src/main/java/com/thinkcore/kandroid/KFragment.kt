@@ -33,45 +33,45 @@ inline fun Fragment.longToast(@StringRes resId: Int): Toast = activity!!.longToa
 inline fun <reified T : Preference> PreferenceFragment.findPref(key: String): T =
     findPreference(key) as T
 
-/**
- * Fragment show
- */
-inline fun <reified T : Fragment> Fragment.showFragment(
-    replaceViewId: Int, init: (T).() -> Unit = {}
-): T {
-    val sfm = childFragmentManager
-    val transaction = sfm.beginTransaction()
-    var fragment = sfm.findFragmentByTag(T::class.java.name)
-    if (fragment == null) {
-        fragment = T::class.java.newInstance()
-        transaction.add(replaceViewId, fragment, T::class.java.name)
-    }
-    sfm.fragments.filter { it != fragment }.forEach {
-        transaction.hide(it)
-    }
-    transaction.show(fragment)
-    transaction.commitAllowingStateLoss()
-    sfm.executePendingTransactions()
-    init(fragment as T)
-    return fragment as T
-}
-
-/**
- * Fragment show
- */
-inline fun Fragment.showFragment(
-    fragment: Fragment,
-    replaceViewId: Int
-) {
-    val sfm = childFragmentManager
-    val transaction = sfm.beginTransaction()
-    if (!fragment.isAdded) {
-        transaction.add(replaceViewId, fragment, fragment.javaClass.name)
-    }
-    sfm.fragments.filter { it != fragment }.forEach {
-        transaction.hide(it)
-    }
-    transaction.show(fragment)
-    transaction.commitAllowingStateLoss()
-    sfm.executePendingTransactions()
-}
+///**
+// * Fragment show
+// */
+//inline fun <reified T : Fragment> Fragment.showFragment(
+//    replaceViewId: Int, init: (T).() -> Unit = {}
+//): T {
+//    val sfm = childFragmentManager
+//    val transaction = sfm.beginTransaction()
+//    var fragment = sfm.findFragmentByTag(T::class.java.name)
+//    if (fragment == null) {
+//        fragment = T::class.java.newInstance()
+//        transaction.add(replaceViewId, fragment, T::class.java.name)
+//    }
+//    sfm.fragments.filter { it != fragment }.forEach {
+//        transaction.hide(it)
+//    }
+//    transaction.show(fragment)
+//    transaction.commitAllowingStateLoss()
+//    sfm.executePendingTransactions()
+//    init(fragment as T)
+//    return fragment as T
+//}
+//
+///**
+// * Fragment show
+// */
+//inline fun Fragment.showFragment(
+//    fragment: Fragment,
+//    replaceViewId: Int
+//) {
+//    val sfm = childFragmentManager
+//    val transaction = sfm.beginTransaction()
+//    if (!fragment.isAdded) {
+//        transaction.add(replaceViewId, fragment, fragment.javaClass.name)
+//    }
+//    sfm.fragments.filter { it != fragment }.forEach {
+//        transaction.hide(it)
+//    }
+//    transaction.show(fragment)
+//    transaction.commitAllowingStateLoss()
+//    sfm.executePendingTransactions()
+//}

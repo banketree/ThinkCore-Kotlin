@@ -251,7 +251,7 @@ inline fun TAppActivity.jumpToActivityForResult(
 /**
  * Activity show
  */
-inline fun <reified T : TFragment> FragmentActivity.showTFragment(
+inline fun <reified T : TFragment> FragmentActivity.showFragment(
     replaceViewId: Int, init: (T).() -> Unit = {}
 ): T {
     val sfm = supportFragmentManager
@@ -277,7 +277,7 @@ inline fun <reified T : TFragment> FragmentActivity.showTFragment(
 /**
  * Activity show
  */
-inline fun FragmentActivity.showTFragment(
+inline fun FragmentActivity.showFragment(
     fragment: TFragment,
     replaceViewId: Int
 ) {
