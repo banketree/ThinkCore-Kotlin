@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import android.view.KeyEvent
 import android.text.TextUtils
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import java.util.*
 
@@ -251,7 +252,7 @@ inline fun TAppActivity.jumpToActivityForResult(
 /**
  * Activity show
  */
-inline fun <reified T : TFragment> FragmentActivity.showFragment(
+inline fun <reified T : Fragment> FragmentActivity.showFragment(
     replaceViewId: Int, init: (T).() -> Unit = {}
 ): T {
     val sfm = supportFragmentManager
@@ -278,7 +279,7 @@ inline fun <reified T : TFragment> FragmentActivity.showFragment(
  * Activity show
  */
 inline fun FragmentActivity.showFragment(
-    fragment: TFragment,
+    fragment: Fragment,
     replaceViewId: Int
 ) {
     val sfm = supportFragmentManager
