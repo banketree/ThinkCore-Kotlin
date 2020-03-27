@@ -10,6 +10,7 @@ import com.thinkcore.activity.TAppActivity
 import com.thinkcore.activity.jumpToActivityForResult
 import com.thinkcore.cache.disc.DiskLruCache
 import com.thinkcore.cache.memory.impl.UsingFreqLimitedMemoryCache
+import com.thinkcore.kotlin.toTimeForYYMMDDHHMMSS
 import kotlinx.android.synthetic.main.activity_main.*
 import me.jessyan.autosize.TAdapterScreen
 
