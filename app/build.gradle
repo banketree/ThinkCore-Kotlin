@@ -55,4 +55,5 @@ dependencies {
     implementation project(path: ':thinkUtils')
     implementation project(path: ':thinkPreference')
     implementation project(path: ':thinkAdapt')
+    implementation project(path: ':thinkKotlin')
 }
