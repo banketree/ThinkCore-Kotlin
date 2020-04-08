@@ -48,7 +48,7 @@ inline fun <reified T : Any> removeList(
 }
 
 inline fun <reified T : Any> hasList(
-    sourceList: ArrayList<T>,
+    sourceList: List<T>,
     isFilter: (T).() -> Boolean
 ): Boolean {
     val sourceIterator = sourceList.iterator()

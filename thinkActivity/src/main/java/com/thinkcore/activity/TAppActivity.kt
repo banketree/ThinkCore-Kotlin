@@ -217,9 +217,12 @@ inline fun <reified T : Any> TAppActivity.jumpToClearNewTaskActivity(
     startActivity(actionIntent)
 }
 
+inline fun TAppActivity.getRandomRequestCode(): Int =
+    Random().nextInt(10000) + Random().nextInt(1000) + Random().nextInt(100)
+
 inline fun <reified T : Any> TAppActivity.jumpToActivityForResult(
     bundle: Bundle? = null
-    , resultId: Int = Random().nextInt(10000) + Random().nextInt(1000) + Random().nextInt(100)
+    , resultId: Int = getRandomRequestCode()
     , iActivityResult: IActivityResult? = null
 ) = run {
     var actionIntent = Intent(this, T::class.java)
@@ -236,7 +239,7 @@ inline fun <reified T : Any> TAppActivity.jumpToActivityForResult(
 inline fun TAppActivity.jumpToActivityForResult(
     targetIntent: Intent,
     bundle: Bundle? = null
-    , resultId: Int = Random().nextInt(10000) + Random().nextInt(1000) + Random().nextInt(100)
+    , resultId: Int = getRandomRequestCode()
     , iActivityResult: IActivityResult? = null
 ) = run {
     iActivityResult?.let {

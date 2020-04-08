@@ -64,6 +64,10 @@ inline fun Context.getInterVideoDir(): String {
     return filePath.interVideoDir
 }
 
+inline fun Context.isExternalStoragePresent(): Boolean {
+    return TStorageUtils.isExternalStoragePresent() && hasExternalStoragePermission()
+}
+
 inline fun Context.hasExternalStoragePermission(): Boolean {
     return TStorageUtils.hasExternalStoragePermission(this.applicationContext)
 }
