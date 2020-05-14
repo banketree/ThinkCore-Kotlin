@@ -3,10 +3,15 @@ package com.thinkcore.demo
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import com.thinkcore.activity.IActivityResult
 import com.thinkcore.activity.TAppActivity
 import com.thinkcore.activity.jumpToActivityForResult
 import com.thinkcore.cache.memory.impl.UsingFreqLimitedMemoryCache
+import com.thinkcore.listener.ICallBackListener
+import com.thinkcore.listener.ICallBackResultListener
+import com.thinkcore.listener.onCallBackListener
+import com.thinkcore.listener.onCallBackResultListener
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : TAppActivity() {
@@ -22,15 +27,28 @@ class MainActivity : TAppActivity() {
             startScreen()
         }
 
+        test_params_tv.setOnClickListener(object : View.OnClickListener {
+            override fun onClick(v: View?) {
+            }
+        })
         test_params_tv.setOnClickListener {
-//            val adaptConfig = TAdapterScreen.getInstance().adaptConfig
+            //            val adaptConfig = TAdapterScreen.getInstance().adaptConfig
 //            adaptConfig.isBaseOnWidth = !adaptConfig.isBaseOnWidth
 //            adaptConfig.isExcludeFontScale = !adaptConfig.isExcludeFontScale
 //            startScreen()
         }
+
+        testListener(onCallBackListener {
+
+        })
+
+
+        testListener(onCallBackResultListener {
+
+        })
     }
 
-    private fun startScreen(){
+    private fun startScreen() {
 //        jumpToActivityForResult<AdaptScreen>(
 //            iActivityResult = object : IActivityResult {
 //                override fun onActivityResult(resultCode: Int, intent: Intent?) {
@@ -44,5 +62,14 @@ class MainActivity : TAppActivity() {
 //        cache.put("", "test")
 //        cache.get("")
 //            val diskCache: DiskLruCache = DiskLruCache.open(null, 1, 2, 50)
+    }
+
+    private fun testListener(listenr: ICallBackListener) {
+
+    }
+
+
+    private fun testListener(listenr: ICallBackResultListener) {
+
     }
 }
