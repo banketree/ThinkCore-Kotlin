@@ -8,3 +8,11 @@ package com.thinkcore.listener
 interface ICallBackResultListener {
     fun onCallBack(result: Any)
 }
+
+inline fun onCallBackResultListener(crossinline iCallBackResultListener: ((result: Any) -> Unit)): ICallBackResultListener {
+    return object : ICallBackResultListener {
+        override fun onCallBack(result: Any) {
+            iCallBackResultListener.invoke(result)
+        }
+    }
+}
