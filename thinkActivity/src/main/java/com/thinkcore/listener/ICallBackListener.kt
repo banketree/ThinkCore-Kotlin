@@ -13,8 +13,6 @@ open interface ICallBackListener {
 
 inline fun onCallBackListener(crossinline iCallBackListener: () -> Unit): ICallBackListener {
     return object : ICallBackListener {
-        override fun onCallBack() {
-            iCallBackListener.invoke()
-        }
+        override fun onCallBack() = iCallBackListener.invoke()
     }
 }
