@@ -11,8 +11,6 @@ interface ICallBackResultListener {
 
 inline fun onCallBackResultListener(crossinline iCallBackResultListener: ((result: Any) -> Unit)): ICallBackResultListener {
     return object : ICallBackResultListener {
-        override fun onCallBack(result: Any) {
-            iCallBackResultListener.invoke(result)
-        }
+        override fun onCallBack(result: Any) = iCallBackResultListener.invoke(result)
     }
 }
