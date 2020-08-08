@@ -5,7 +5,7 @@ import android.util.Log;
 import com.thinkcore.preference.BuildConfig;
 
 
-class Logger {
+public class Logger {
     private static boolean enabled = BuildConfig.DEBUG;
     private static final String TAG = "SECURED-PREFERENCE";
 

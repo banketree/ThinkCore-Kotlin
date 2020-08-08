@@ -57,7 +57,7 @@ import javax.security.auth.x500.X500Principal;
  * Created by Mehedi on 8/21/16.
  */
 @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
- class EncryptionManager {
+public class EncryptionManager {
     private final int RSA_BIT_LENGTH = 2048;
     private final int AES_BIT_LENGTH = 256;
     private final int MAC_BIT_LENGTH = 256;

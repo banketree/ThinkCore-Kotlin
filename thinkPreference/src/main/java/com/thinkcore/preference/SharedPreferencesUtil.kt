@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
 import android.preference.PreferenceManager
-import com.thinkcore.encryption.TAes
+import com.thinkcore.encryption.TDes
 import com.thinkcore.preference.secured.DefaultRecoveryHandler
 import com.thinkcore.preference.secured.SecuredPreference
 
@@ -20,14 +20,14 @@ class LocalSharedPreferences {
         fun getLocalSharedPreferences(context: Context): LocalSharedPreferences {
             if (localSharedPreferences == null) {
                 synchronized(LocalSharedPreferences::class.java) {
-//                    if (localSharedPreferences == null) {
-//                        try {
-//                            localSharedPreferences =
-//                                LocalSharedPreferences(context, "secure_store", "vss", "12345678a")
-//                        } catch (ex: Exception) {
-//                            ex.printStackTrace()
-//                        }
-//                    }
+                    if (localSharedPreferences == null) {
+                        try {
+                            localSharedPreferences =
+                                LocalSharedPreferences(context, "secure_store", "vss", "12345678a")
+                        } catch (ex: Exception) {
+                            ex.printStackTrace()
+                        }
+                    }
                     if (localSharedPreferences == null) {
                         localSharedPreferences =
                             LocalSharedPreferences(context, seedKey = "12345678a")
@@ -76,7 +76,7 @@ class LocalSharedPreferences {
             keyPrefix,
             seedKey.toByteArray()
         )
-        this.edit = SecuredPreference.getSharedInstance().edit()
+        this.edit = sp.edit()
     }
 
 
@@ -144,7 +144,7 @@ class LocalSharedPreferences {
     fun setValue(key: String, value: String) {
         var valueAes = value
         if (!isSecured() && isRequireSecured()) {
-            valueAes = TAes.encrypt(seedKey ?: "123", value)
+            valueAes = TDes.encrypt(seedKey ?: "123", value)
         }
         edit.putString(key, valueAes)
         edit.commit()
@@ -196,7 +196,7 @@ class LocalSharedPreferences {
     fun getValue(key: String, defaultValue: String): String? {
         var valueAes = sp.getString(key, defaultValue)
         if (!isSecured() && isRequireSecured()) {
-            valueAes = TAes.decrypt(seedKey ?: "123", valueAes)
+            valueAes = TDes.decrypt(seedKey ?: "123", valueAes)
         }
 
         return valueAes

@@ -11,7 +11,7 @@ import java.util.List;
  * Created by Mehedi Hasan Khan (mehedi.mailing@gmail.com) on 12/31/16.
  */
 
- abstract class RecoveryHandler {
+ public abstract class RecoveryHandler {
     protected abstract boolean recover(Exception e, KeyStore keyStore, List<String> keyAliases, SharedPreferences preferences);
 
     void clearKeyStore(KeyStore keyStore, List<String> aliases) throws KeyStoreException {
