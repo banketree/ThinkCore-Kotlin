@@ -20,14 +20,14 @@ class LocalSharedPreferences {
         fun getLocalSharedPreferences(context: Context): LocalSharedPreferences {
             if (localSharedPreferences == null) {
                 synchronized(LocalSharedPreferences::class.java) {
-                    if (localSharedPreferences == null) {
-                        try {
-                            localSharedPreferences =
-                                LocalSharedPreferences(context, "secure_store", "vss", "12345678a")
-                        } catch (ex: Exception) {
-                            ex.printStackTrace()
-                        }
-                    }
+//                    if (localSharedPreferences == null) {
+//                        try {
+//                            localSharedPreferences =
+//                                LocalSharedPreferences(context, "secure_store", "vss", "12345678a")
+//                        } catch (ex: Exception) {
+//                            ex.printStackTrace()
+//                        }
+//                    }
                     if (localSharedPreferences == null) {
                         localSharedPreferences =
                             LocalSharedPreferences(context, seedKey = "12345678a")
