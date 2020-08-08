@@ -1,10 +1,12 @@
-package com.thinkcore.utils
+package com.thinkcore.preference;
 
-import android.content.SharedPreferences
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.SharedPreferences
 import android.preference.PreferenceManager
-import com.thinkcore.utils.LocalSharedPreferences.Companion.localSharedPreferences
+import com.thinkcore.encryption.TAes
+import com.thinkcore.preference.secured.DefaultRecoveryHandler
+import com.thinkcore.preference.secured.SecuredPreference
 
 
 /**
@@ -18,8 +20,17 @@ class LocalSharedPreferences {
         fun getLocalSharedPreferences(context: Context): LocalSharedPreferences {
             if (localSharedPreferences == null) {
                 synchronized(LocalSharedPreferences::class.java) {
+//                    if (localSharedPreferences == null) {
+//                        try {
+//                            localSharedPreferences =
+//                                LocalSharedPreferences(context, "secure_store", "vss", "12345678a")
+//                        } catch (ex: Exception) {
+//                            ex.printStackTrace()
+//                        }
+//                    }
                     if (localSharedPreferences == null) {
-                        localSharedPreferences = LocalSharedPreferences(context)
+                        localSharedPreferences =
+                            LocalSharedPreferences(context, seedKey = "12345678a")
                     }
                 }
             }
@@ -31,6 +42,7 @@ class LocalSharedPreferences {
     private val context: Context
     private var sp: SharedPreferences
     private var edit: SharedPreferences.Editor
+    private var seedKey: String
 
     /**
      * Create SharedPreferences by filename
@@ -39,10 +51,34 @@ class LocalSharedPreferences {
      * @param filename
      */
     @SuppressLint("WorldWriteableFiles")
-    constructor(context: Context, filename: String) : this(
+    constructor(
+        context: Context,
+        filename: String,
+        seedKey: String
+    ) : this(
         context,
-        context.getSharedPreferences(filename, Context.MODE_PRIVATE)
+        context.getSharedPreferences(filename, Context.MODE_PRIVATE),
+        seedKey
     )
+
+    constructor(
+        context: Context,
+        filename: String,
+        keyPrefix: String,//= "vss"
+        seedKey: String //= "SecuredSeedData"
+    ) {
+        this.context = context
+        this.seedKey = seedKey
+        SecuredPreference.setRecoveryHandler(DefaultRecoveryHandler())
+        this.sp = SecuredPreference(
+            context.applicationContext,
+            filename,
+            keyPrefix,
+            seedKey.toByteArray()
+        )
+        this.edit = SecuredPreference.getSharedInstance().edit()
+    }
+
 
     /**
      * Create SharedPreferences by SharedPreferences
@@ -53,9 +89,11 @@ class LocalSharedPreferences {
     @JvmOverloads
     constructor(
         context: Context,
-        sp: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
+        sp: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context),
+        seedKey: String = "123456"
     ) {
         this.context = context
+        this.seedKey = seedKey
         this.sp = sp
         edit = sp.edit()
     }
@@ -104,7 +142,11 @@ class LocalSharedPreferences {
 
     // String
     fun setValue(key: String, value: String) {
-        edit.putString(key, value)
+        var valueAes = value
+        if (!isSecured() && isRequireSecured()) {
+            valueAes = TAes.encrypt(seedKey ?: "123", value)
+        }
+        edit.putString(key, valueAes)
         edit.commit()
     }
 
@@ -152,7 +194,12 @@ class LocalSharedPreferences {
 
     // String
     fun getValue(key: String, defaultValue: String): String? {
-        return sp.getString(key, defaultValue)
+        var valueAes = sp.getString(key, defaultValue)
+        if (!isSecured() && isRequireSecured()) {
+            valueAes = TAes.decrypt(seedKey ?: "123", valueAes)
+        }
+
+        return valueAes
     }
 
     fun getValue(resKey: Int, defaultValue: String): String? {
@@ -169,6 +216,10 @@ class LocalSharedPreferences {
         edit.clear()
         edit.commit()
     }
+
+    fun isSecured(): Boolean = sp is SecuredPreference
+
+    fun isRequireSecured(): Boolean = seedKey.isNotEmpty()
 }
 
 inline fun Context.getLocalSharedPreferences(): LocalSharedPreferences =

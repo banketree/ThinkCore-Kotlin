@@ -3,6 +3,7 @@ package com.thinkcore.demo
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import com.thinkcore.activity.IActivityResult
 import com.thinkcore.activity.TAppActivity
@@ -12,6 +13,7 @@ import com.thinkcore.listener.ICallBackListener
 import com.thinkcore.listener.ICallBackResultListener
 import com.thinkcore.listener.onCallBackListener
 import com.thinkcore.listener.onCallBackResultListener
+import com.thinkcore.preference.getLocalSharedPreferences
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : TAppActivity() {
@@ -32,6 +34,12 @@ class MainActivity : TAppActivity() {
             }
         })
         test_params_tv.setOnClickListener {
+            getLocalSharedPreferences().setValue("dada", "12312321312321")
+            getLocalSharedPreferences().setValue("dada2", "12312321312321")
+            val test1 = getLocalSharedPreferences().getValue("dada", "")
+            val test2 = getLocalSharedPreferences().getValue("dada2", "")
+
+            Log.i("", "${test1}${test2}")
             //            val adaptConfig = TAdapterScreen.getInstance().adaptConfig
 //            adaptConfig.isBaseOnWidth = !adaptConfig.isBaseOnWidth
 //            adaptConfig.isExcludeFontScale = !adaptConfig.isExcludeFontScale

@@ -1,6 +1,6 @@
 apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 
 group = 'com.github.banketree'
 
@@ -33,6 +33,7 @@ dependencies {
     implementation dependence["appcompat"]
     implementation dependence["kotlin-stdlib-jdk7"]
     api dependence["core-ktx"]
+    implementation project(path: ':thinkPreference')
 }
 repositories {
     mavenCentral()
