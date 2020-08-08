@@ -5,8 +5,6 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.preference.PreferenceManager
 import com.thinkcore.encryption.TDes
-import com.thinkcore.preference.secured.DefaultRecoveryHandler
-import com.thinkcore.preference.secured.SecuredPreference
 
 
 /**
@@ -20,17 +18,9 @@ class LocalSharedPreferences {
         fun getLocalSharedPreferences(context: Context): LocalSharedPreferences {
             if (localSharedPreferences == null) {
                 synchronized(LocalSharedPreferences::class.java) {
-//                    if (localSharedPreferences == null) {
-//                        try {
-//                            localSharedPreferences =
-//                                LocalSharedPreferences(context, "secure_store", "vss", "12345678a")
-//                        } catch (ex: Exception) {
-//                            ex.printStackTrace()
-//                        }
-//                    }
                     if (localSharedPreferences == null) {
                         localSharedPreferences =
-                            LocalSharedPreferences(context, seedKey = "12345678a")
+                            LocalSharedPreferences(context)
                     }
                 }
             }
@@ -61,25 +51,6 @@ class LocalSharedPreferences {
         seedKey
     )
 
-    constructor(
-        context: Context,
-        filename: String,
-        keyPrefix: String,//= "vss"
-        seedKey: String //= "SecuredSeedData"
-    ) {
-        this.context = context
-        this.seedKey = seedKey
-        SecuredPreference.setRecoveryHandler(DefaultRecoveryHandler())
-        this.sp = SecuredPreference(
-            context.applicationContext,
-            filename,
-            keyPrefix,
-            seedKey.toByteArray()
-        )
-        this.edit = sp.edit()
-    }
-
-
     /**
      * Create SharedPreferences by SharedPreferences
      *
@@ -90,7 +61,7 @@ class LocalSharedPreferences {
     constructor(
         context: Context,
         sp: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context),
-        seedKey: String = "123456"
+        seedKey: String = "12345678a"
     ) {
         this.context = context
         this.seedKey = seedKey
@@ -142,10 +113,7 @@ class LocalSharedPreferences {
 
     // String
     fun setValue(key: String, value: String) {
-        var valueAes = value
-        if (!isSecured() && isRequireSecured()) {
-            valueAes = TDes.encrypt(seedKey ?: "123", value)
-        }
+        var valueAes = TDes.encrypt(seedKey ?: "123", value)
         edit.putString(key, valueAes)
         edit.commit()
     }
@@ -195,10 +163,7 @@ class LocalSharedPreferences {
     // String
     fun getValue(key: String, defaultValue: String): String? {
         var valueAes = sp.getString(key, defaultValue)
-        if (!isSecured() && isRequireSecured()) {
-            valueAes = TDes.decrypt(seedKey ?: "123", valueAes)
-        }
-
+        valueAes = TDes.decrypt(seedKey ?: "123", valueAes)
         return valueAes
     }
 
@@ -216,10 +181,6 @@ class LocalSharedPreferences {
         edit.clear()
         edit.commit()
     }
-
-    fun isSecured(): Boolean = sp is SecuredPreference
-
-    fun isRequireSecured(): Boolean = seedKey.isNotEmpty()
 }
 
 inline fun Context.getLocalSharedPreferences(): LocalSharedPreferences =
