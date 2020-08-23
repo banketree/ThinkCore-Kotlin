@@ -58,15 +58,13 @@ object ZipUtil {
 
 @Throws(Exception::class)
 inline fun File.zip(
-    filePath: String,
     zipPath: String,
     password: String? = null
-) = ZipUtil.zip(filePath, zipPath,password)
+) = ZipUtil.zip(path, zipPath, password)
 
 
 @Throws(Exception::class)
 inline fun File.unzip(
-    zipPath: String,
     dirPath: String,
     password: String? = null
-) = ZipUtil.unzip(zipPath, dirPath, password)
+) = ZipUtil.unzip(path, dirPath, password)
