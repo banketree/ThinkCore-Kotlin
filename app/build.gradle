@@ -54,4 +54,5 @@ dependencies {
     implementation project(path: ':thinkEncryption')
     implementation project(path: ':thinkUtils')
     implementation project(path: ':thinkPreference')
+    implementation project(path: ':thinkZip')
 }

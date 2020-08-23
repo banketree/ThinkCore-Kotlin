@@ -60,3 +60,17 @@ inline fun <reified T : Any> hasList(
     }
     return false
 }
+
+/**
+ * @param
+ * @return
+ * @author banketree
+ * @time 2020/4/5 14:19
+ * @description
+ * 转换
+ */
+inline fun <T> List<T>.toArrayList(): ArrayList<T> {
+    val resultList = arrayListOf<T>()
+    resultList.addAll(this)
+    return resultList
+}

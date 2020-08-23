@@ -137,5 +137,7 @@ ext {
             "PhotoView"                    : "com.github.chrisbanes:PhotoView:2.0.0", //图片浏览类库
             "pickers-kotlin"               : "com.github.banketree:pickers-kotlin:v0.0.1", //滑动 选择器
             "io-client"                    : "io.socket:socket.io-client:0.8.3", //通讯
+            //https://github.com/srikanth-lingala/zip4j
+            "zip4j"                        : "com.github.srikanth-lingala:zip4j:v2.6.1", //压缩
     ]
 }
