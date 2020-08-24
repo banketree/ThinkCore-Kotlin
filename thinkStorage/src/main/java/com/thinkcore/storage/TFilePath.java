@@ -21,6 +21,7 @@ public class TFilePath {
     public static final String PATH_VIDEO = "video";
     public static final String PATH_DOWNLOAD = "download";
     public static final String PATH_CACHE = "cache";
+    public static final String PATH_LOG = "log";
     public static final String PATH_SPLIT = File.separator;
 
     protected String appName = "";
@@ -56,11 +57,16 @@ public class TFilePath {
             result = getExternalStorage().createDirectory(
                     appName + PATH_SPLIT + PATH_CACHE);
 
+        if (!getExternalStorage().isDirectoryExists(getExternalLogDir()))
+            result = getExternalStorage().createDirectory(
+                    appName + PATH_SPLIT + PATH_LOG);
+
         result = getInternalStorage().createDirectory(PATH_IMAGE);
         result = getInternalStorage().createDirectory(PATH_AUDIO);
         result = getInternalStorage().createDirectory(PATH_VIDEO);
         result = getInternalStorage().createDirectory(PATH_DOWNLOAD);
         result = getInternalStorage().createDirectory(PATH_CACHE);
+        result = getInternalStorage().createDirectory(PATH_LOG);
     }
 
     public InternalStorage getInternalStorage() {
@@ -81,6 +87,14 @@ public class TFilePath {
 
     public String getExternalImageDir() {
         return getExternalAppDir() + PATH_SPLIT + PATH_IMAGE;
+    }
+
+    public String getExternalLogDir() {
+        return getExternalAppDir() + PATH_SPLIT + PATH_LOG;
+    }
+
+    public String getInterLogDir() {
+        return getInterAppDir() + PATH_SPLIT + PATH_LOG;
     }
 
     // public String getIndividualDir() {

@@ -14,7 +14,7 @@ inline fun Context.getExternalAudioDir(): String {
     return filePath.externalAudioDir
 }
 
-inline fun Context.getExternalCacheDirByApp(): String {
+inline fun Context.getExternalCacheDir(): String {
     val filePath = TFilePath(this.applicationContext)
     return filePath.externalCacheDir
 }
@@ -32,6 +32,11 @@ inline fun Context.getExternalImageDir(): String {
 inline fun Context.getExternalVideoDir(): String {
     val filePath = TFilePath(this.applicationContext)
     return filePath.externalVideoDir
+}
+
+inline fun Context.getExternalLogDir(): String {
+    val filePath = TFilePath(this.applicationContext)
+    return filePath.externalLogDir
 }
 
 inline fun Context.getInterAppDir(): String {
@@ -62,6 +67,11 @@ inline fun Context.getInterDownloadDir(): String {
 inline fun Context.getInterVideoDir(): String {
     val filePath = TFilePath(this.applicationContext)
     return filePath.interVideoDir
+}
+
+inline fun Context.getInterLogDir(): String {
+    val filePath = TFilePath(this.applicationContext)
+    return filePath.interLogDir
 }
 
 inline fun Context.isExternalStoragePresent(): Boolean {
