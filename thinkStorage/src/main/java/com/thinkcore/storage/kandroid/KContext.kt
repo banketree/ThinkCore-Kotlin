@@ -14,7 +14,7 @@ inline fun Context.getExternalAudioDir(): String {
     return filePath.externalAudioDir
 }
 
-inline fun Context.getExternalCacheDir(): String {
+inline fun Context.getExternalCacheDirString(): String {
     val filePath = TFilePath(this.applicationContext)
     return filePath.externalCacheDir
 }
