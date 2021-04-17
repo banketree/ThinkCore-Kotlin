@@ -1,2 +1,4 @@
 include ':app', ':thinkActivity', ':thinkCache', ':thinkEncryption', ':thinkLog', ':thinkStorage', ':thinkNetwork', ':thinkPreference', ':thinkUtils', ':thinkTask'
 include ':thinkZip'
+include ':thinkAdapter'
+include ':thinkModule'
