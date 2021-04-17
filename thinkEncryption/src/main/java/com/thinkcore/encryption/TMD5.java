@@ -61,7 +61,6 @@ public class TMD5 {
 
 			return response;
 		} catch (NoSuchAlgorithmException e) {
-			// TODO Auto-generated catch block
 			// e.printStackTrace();
 			return "";
 		}

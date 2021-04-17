@@ -910,10 +910,8 @@ public class TBase64 {
 			bis.close();
 			data = TBase64.encode(baos.toByteArray());
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

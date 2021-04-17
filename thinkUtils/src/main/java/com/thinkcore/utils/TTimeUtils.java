@@ -47,7 +47,6 @@ public class TTimeUtils {
             long unixTime = System.currentTimeMillis();
             unixTimeGMT = unixTime + "";
         } catch (Exception e) {
-            // TODO: handle exception
             unixTimeGMT = "";
         }
         return unixTimeGMT;
@@ -64,7 +63,6 @@ public class TTimeUtils {
         try {
             unixTimeGMT = System.currentTimeMillis();
         } catch (Exception e) {
-            // TODO: handle exception
         }
         return unixTimeGMT;
 
