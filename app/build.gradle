@@ -55,4 +55,8 @@ dependencies {
     implementation project(path: ':thinkUtils')
     implementation project(path: ':thinkPreference')
     implementation project(path: ':thinkZip')
+    implementation project(path: ':thinkAdapter')
+    implementation project(path: ':thinkTask')
+    implementation project(path: ':thinkModule')
+    implementation project(path: ':thinkPerformanceMonitor')
 }
