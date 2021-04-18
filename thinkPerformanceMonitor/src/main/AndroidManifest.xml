@@ -1,0 +1,10 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.thinkcore.performance">
+
+    <application>
+        <meta-data
+            android:name="com.sysfunc.service.performance_monitor.config.TestingConfiguration"
+            android:value="ConfigModule" />
+    </application>
+</manifest>
+
